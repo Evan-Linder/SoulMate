@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SoulMate</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    </head>
+    <body>
+        <!--Account I want the button to go here for account stuff. I want it to a
+        ppear in the top right corner of the screen-->
+        <div class="account-area">
+            <button class="icon material-symbols-outlined">send</button>
+        </div>
+    
+        <!--Greetings-->
+        <header class="header">
+            <h2 class = "title">Glad you made it!</h2>
+            <h4 class = "subtitle">How can I make your day better?</h4>
+
+            <!--Suggestions list-->
+            <ul class = "suggestion-list">
+                <li class = "suggestion">
+                    <h4 class = "text">5 things that can help improve your mood when you're feeling down.</h4>
+                    <span class=" icon material-symbols-outlined">chat_paste_go</span>
+                </li>
+
+                <li class = "suggestion">
+                    <h4 class = "text">5 simple ways to relax and ease tension when you're feeling stressed.</h4>
+                    <span class="icon material-symbols-outlined">chat_paste_go</span>
+                </li>
+
+                <li class = "suggestion">
+                    <h4 class = "text">5 reminders of why you're doing great, even when things feel tough.</h4>
+                    <span class="icon material-symbols-outlined">chat_paste_go</span>
+                </li>
+
+                <li class = "suggestion">
+                    <h4 class = "text">5 steps to manage anger in healthy ways.</h4>
+                    <span class="icon material-symbols-outlined">chat_paste_go</span>
+                </li>
+            </ul>
+        </header>
+
+        <!--Typing area-->
+        <div class="typing-area">
+            <form action="#" class="typing-form">
+                <div class="input-wrapper">
+                    <input type="text" placeholder = "Message your soulmate"
+                    class= "typing-input" required>
+                    <button class="icon material-symbols-outlined">send</button>
+                </div>
+                    <div class="action-buttons">
+                        <span class = "icon material-symbols-outlined">light_mode</span>
+                        <span class = "icon material-symbols-outlined">delete</span>
+                </div>
+            </form>
+            <p class="disclaimer-text">
+                This application uses the Gemini language model, a machine learning-powered 
+                system that can provide support and information. However, it is not a real 
+                person and may make mistakes. While it can offer helpful suggestions, it is not 
+                perfect and may not always provide the best response.
+                Please use discretion and seek professional help if needed.
+            </p>
+        </div>
+    </body>
+</html>
