@@ -40,6 +40,7 @@
     right: 0;
     padding-top: 1.5rem;
     padding-right: 3.5rem;
+    z-index: 1;
 }
 
 .homepage .dropdown-btn {
@@ -100,9 +101,14 @@
 }
 
 .homepage .header {
-    margin-top: 10vh;
+    margin-top: 7vh;
     padding: 0.5rem;
+
+}
+
+body.hide-header .header {
     display: none;
+    margin-top: 0;
 }
 
 .homepage .header .title {
@@ -519,6 +525,7 @@
     padding: 2rem 1rem 12rem;
     max-height: 100vh;
     overflow-y: auto;
+    scrollbar-color: #999 transparent;
 }
 
 
@@ -537,7 +544,12 @@
     color: var(--text-color);
 }
 
-.chat-list .message .icon {
+.chat-list .message .text.error {
+    color: #e55865;
+}
+
+
+.chat-list .message .icon{
     height: 35px;
     width: 35px;
     display: flex;
@@ -555,7 +567,7 @@
     background: var(--secondary-color);
 }
 
-.chat-list .message:not(.loading):hover .icon {
+.chat-list .message:not(.loading):hover .icon:not(.hide){
     visibility: visible;
 }
 
@@ -607,6 +619,25 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.chat-container {
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.scroll-marker {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    height: 1px;
+    background-color: transparent;
+}
+
+.chat-list.hide-old-text {
+    opacity: 0.3;
+    pointer-events: none;
 }
 
 
