@@ -3,13 +3,52 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Profile page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     </head>
-    <body>
-        
-        <script src="" async defer></script>
+    <!--Back button-->
+    <a href = "index.html" class = "back-button">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+
+
+    <!--Profile container-->
+    <body class = "profile">
+        <!--Profile picture-->
+        <div class = "profile-container">
+            
+            <div class = "profile-picture">
+                <img src = "profile-picture.jpg" alt = "" width = "150" height = "150'">
+            </div>
+
+            <!--Username-->
+            <div class = "username"> 
+                <h2>Username: evanlinder</h2>
+            </div>
+
+            <!--Bio section-->
+            <div class="bio">
+                <h3>Bio</h3>
+                <p class = "text">Hi, my name is Evan Linder. I am 23 and I live in Minnesota. I attend Mankato state university 
+                    majoring in Computer Science.
+                </p>
+            </div>
+
+            <!--Contact info-->
+            <div class="contact-info">
+                <h3 class = "heading">Contact Info</h3>
+                <p class = "text">Email: evanlinderwork@gmail.com</p>
+                <p class = "text">Phone: 507-420-1010</p>
+            </div>
+
+            <!--Additional hobbies-->
+            <div class="additional-hobbies">
+                <h3 class = "heading">Additional information</h3>
+                <p class = "text">Hobbies: Coding, snowboarding, playing video games.</p>
+            </div>
+        </div>
     </body>
 </html>
