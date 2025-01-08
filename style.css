@@ -85,7 +85,7 @@
     color: var(--text-color);
 }
 
-.homepage .header, .homepage .typing-form{
+.homepage .header, .chat-list .message, .homepage .typing-form{
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -93,6 +93,7 @@
 .homepage .header {
     margin-top: 10vh;
     padding: 0.5rem;
+    display: none;
 }
 
 .homepage .header .title {
@@ -488,6 +489,120 @@
 .back-button:hover {
     background-color: var(--secondary-hover-color);
 }
+
+/*CHAT LIST*/
+.chat-list .outgoing .avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    align-self: flex-start;
+}
+
+.chat-list .incoming .avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    align-self: flex-start;
+}
+
+.chat-list {
+    padding: 2rem 1rem 12rem;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+
+.chat-list .message.incoming {
+    margin-top: 1.5rem;
+}
+
+.chat-list .message .message-content {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.chat-list .message .text {
+    color: var(--text-color);
+}
+
+.chat-list .message .icon {
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 3.5rem;
+    color: var(--text-color);
+    border-radius: 50%;
+    font-size: 1.25rem;
+    visibility: hidden;
+}
+
+.chat-list .message .icon:hover {
+    background: var(--secondary-color);
+}
+
+.chat-list .message:not(.loading):hover .icon {
+    visibility: visible;
+}
+
+.chat-list .loading-indicator {
+    display: none;
+    width: 100%;
+    gap: 0.8rem;
+    flex-direction: column;
+}
+
+.chat-list .message.loading .loading-indicator {
+    display: flex;
+}
+
+.chat-list .loading-indicator .loading-bar {
+    height: 11px;
+    width: 100%;
+    background: linear-gradient(to right, #FF4E50,var(--primary-color), #F9D423);
+    animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        background-position: -800px 0;
+    }
+
+    100% {
+        background-position: 800px 0;
+    }
+}
+
+.chat-list .message.loading .text {
+    display: none;
+}
+
+.chat-list .loading-indicator .loading-bar:last-child {
+        width: 80%;
+}
+
+.chat-list .loading-indicator .loading-bar:nth-child(2) {
+    width: 90%;
+}
+
+.chat-list .message.loading .avatar {
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
 
 
 

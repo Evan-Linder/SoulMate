@@ -1,61 +1,113 @@
-$(document).ready(function () {
-    // Handle login button click
-    $("#loginButton").on("click", function () {
-        const action = "login"; // Set action to 'login' for login request
-        // Serialize form data and append the action parameter
-        const formData = $("#loginForm").serialize() + "&action=" + action;
+const typingForm = document.querySelector(".typing-form");
+const chatList = document.querySelector(".chat-list")
 
-        $.ajax({
-            url: "http://localhost/supportbot/db_handler.php", // URL of the PHP script handling the login
-            type: "POST", // Set the request type to POST
-            data: formData, // Send the serialized form data along with action
-            success: function (response) {
-                console.log("Response:", response); // Log the server response for debugging
+let userMessage = null;
+API_KEY = "AIzaSyAcDhEtVq2aKHLVlutOLlMxZSmv8o--HKk"
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-                const popup = $("#errorPopup"); // Get the popup element for displaying messages
-                if (response.status === "success") {
-                    // If login is successful, redirect to the homepage
-                    window.location.href = "http://localhost/supportbot/index.html";
-                } else {
-                    // If there's an error, display the error message in the popup
-                    popup.text(response.message).addClass("error").fadeIn();
-                    // Hide the popup after 3 seconds
-                    setTimeout(() => popup.fadeOut(), 3000);
-                }
-            }
+// Create a new message element and return it 
+const createmessageElement = (content, ...className) => {
+    const div = document.createElement("div");
+    div.classList.add("message", ...className);
+    div.innerHTML = content;
+    return div;
+}
+
+const showTypingEffect = (text, textElement) => {
+    const words = text.split(' ');
+
+    let currentWordIndex = 0;
+
+    const typingInterval = setInterval(() => {
+        // append each word to the text element with a space
+        textElement.innerText += (currentWordIndex === 0 ? '' : ' ') + words[currentWordIndex++];
+
+
+        // if all words are displayed
+        if (currentWordIndex === words.length) {
+            clearInterval(typingInterval);
+        }
+    }, 75);
+}
+
+const generateAPIResponse = async (incomingMessageDiv) => {
+
+    const textElement = incomingMessageDiv.querySelector(".text"); // get text element
+
+    // send a post request to the api with the user's message
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                contents: [{
+                    role: "user",
+                    parts: [{text: userMessage}]
+                }]
+            })
         });
-    });
 
-    // Handle register button click
-    $("#registerButton").on("click", function () {
-        const action = "register"; // Set action to 'register' for register request
-        // Serialize form data and append the action parameter
-        const formData = $("#loginForm").serialize() + "&action=" + action;
+        const data = await response.json();
+        
 
-        $.ajax({
-            url: "http://localhost/supportbot/db_handler.php", // URL of the PHP script handling the registration
-            type: "POST", // Set the request type to POST
-            data: formData, // Send the serialized form data along with action
-            success: function (response) {
-                console.log("Response:", response); // Log the server response for debugging
+        // get api response text
+        const apiResponse = data?.candidates[0].content.parts[0].text;
+        showTypingEffect(apiResponse, textElement);
+    } catch (error) {
+        console.log(error);
+    } finally {
+        incomingMessageDiv.classList.remove("loading");
+    }
+}
 
-                const popup = $("#errorPopup"); // Get the popup element for displaying messages
-                if (response.status === "success") {
-                    // If registration is successful, display success message
-                    popup.text(response.message).addClass("success").fadeIn();
-                    // Hide the popup after 3 seconds
-                    setTimeout(() => popup.fadeOut(), 3000);
-                } else {
-                    // If there's an error, display the error message in the popup
-                    popup.text(response.message).addClass("error").fadeIn();
-                    setTimeout(() => popup.fadeOut(), 3000); // Hide after 3 seconds
-                }
-            }
-        });
-    });
-});
+// show a loading animation while waiting for the API response.
+const showLoadingAnimation = () => {
+    const html = `
+                <div class="message-content">
+                    <img src="images/loading.svg" alt="AI Image" class="avatar">
+                    <p class = "text"></p>
+                    <div class = "loading-indicator">
+                        <div class = "loading-bar"></div>
+                        <div class = "loading-bar"></div>
+                        <div class = "loading-bar"></div>
+                    </div>
+                </div>
+                <span onclick = "copyMessage(this)" class = "icon material-symbols-outlined">content_copy</span>`;
+    const incomingMessageDiv = createmessageElement(html, "incoming", "loading");
+    chatList.appendChild(incomingMessageDiv); 
+
+    generateAPIResponse(incomingMessageDiv);
+}
+
+const copyMessage = (copyIcon) => {
+    const messageText = copyIcon.parentElement.querySelector(".text").innerText;
+
+    navigator.clipboard.writeText(messageText);
+    copyIcon.innerText = "done";
+    setTimeout(() => copyIcon.innerText = "content_copy", 1000); // revert after a second
+}
+
+const handleOutgoingChat = () => {
+    userMessage = typingForm.querySelector(".typing-input").value.trim();
+
+    if (!userMessage) return; // exit if there is no message
+    
+    const html = `<div class="message-content">
+                  <img src="images/profile-picture.jpg" alt="User Image" class="avatar">
+                  <p class = "text"></p>
+                </div>`;
+    const outgoingMessageDiv = createmessageElement(html, "outgoing");
+    outgoingMessageDiv.querySelector(".text").innerText = userMessage;
+    chatList.appendChild(outgoingMessageDiv);
+
+    typingForm.reset(); //clear input field
+    setTimeout(showLoadingAnimation, 400); // show the loading animation after the delay
+}
 
 
+// Prevent default form submission.
+typingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-
-
+    handleOutgoingChat();
+})
