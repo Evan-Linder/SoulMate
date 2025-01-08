@@ -7,12 +7,18 @@
         <meta name="description" content="Login Page">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="script.js" defer></script>
     </head>
     <body class="login">
         <div class="login-container">
             <h2 class="title">Login</h2>
-            <h3 class = "subtitle">Your Soulmate Awaits!</h3>
-            <form action="submit-login" method="POST">
+            <h3 class="subtitle">Your Soulmate Awaits!</h3>
+
+            <!-- Popup for errors and success messages -->
+            <div id="errorPopup" class="error-popup"></div>
+
+            <form id="loginForm">
                 <div class="form-group">
                     <label class="text" for="username">Username or Email</label>
                     <input class="typing-input" type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -25,9 +31,14 @@
 
                 <div class="form-group bottom-row">
                     <a class="text forgot-password" href="/forgot-password">Forgot password?</a>
-                    <button class = "login-btn" type="submit">Login</button>
+                    <div class="button-container">
+                        <!-- Update IDs to match JavaScript event listeners -->
+                        <button class="login-btn" type="button" id="loginButton" name="action" value="login">Login</button>
+                        <button class="register-btn" type="button" id="registerButton" name="action" value="register">Register</button>
+                    </div>
                 </div>
             </form>
         </div>
     </body>
 </html>
+

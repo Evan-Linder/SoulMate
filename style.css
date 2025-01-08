@@ -233,6 +233,7 @@
 }
 
 /* LOGIN PAGE */
+/* Main login container styling */
 .login {
     background: var(--primary-color);
     display: flex;
@@ -251,6 +252,7 @@
     max-width: 400px;
 }
 
+/* Title and subtitle styles */
 .login .title {
     font-size: 2rem;
     text-align: center;
@@ -270,6 +272,7 @@
     -webkit-text-fill-color: transparent;
 }
 
+/* Form group styling */
 .login .form-group {
     margin-bottom: 1.5rem;
 }
@@ -281,25 +284,43 @@
     display: block;
 }
 
-.typing-input {
+/* Input field styling */
+.login .typing-input {
     width: 100%;
     padding: 0.8rem;
     border: none;
     border-radius: 1.5rem;
     font-size: 1rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: var(--text-color);
+    background: var(--primary-color);
+
 }
 
-.bottom-row {
+.login .form-group .typing-input:focus {
+    background: var(--secondary-hover-color);
+}
+
+.login .form-group .typing-input::placeholder {
+    color: var(--placeholder-color);
+}
+
+/* Bottom row of buttons (forgot password and submit) */
+.login .bottom-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.forgot-password {
-    font-size: 0.9rem;
+/* Forgot password link */
+.login .forgot-password {
+    font-size: 0.5rem;
 }
 
-.login-btn {
+/* Login button styling */
+.login .login-btn {
     padding: 0.8rem 1.5rem;
     background-color: #00BFFF;
     color: white;
@@ -309,9 +330,53 @@
     cursor: pointer;
 }
 
-.login-btn:hover {
+.login .login-btn:hover {
     background-color: var(--secondary-hover-color);
 }
+
+/* Register button styling */
+.login .register-btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: #FF1493;
+    color: white;
+    text-decoration: none;
+    border-radius: 1.5rem;
+    font-size: 1rem;
+    text-align: center;
+    margin-left: 1rem;
+    border: none;
+    outline: none;
+}
+
+.login .register-btn:hover {
+    background-color: var(--secondary-hover-color);
+}
+
+.login .button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.error-popup {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 20px;
+    background-color: #f44336;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+.error-popup.success {
+    background-color: #4caf50;
+}
+
 
 
 
